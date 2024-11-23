@@ -1,23 +1,30 @@
 #!/bin/sh
 ### ------------- specify queue name ---------------- 
-#BSUB -q c02516
+###BSUB -q gpu02516i
+###BSUB -q c02516
+#BSUB -q gpua10
+
+
+### ------------- specify job name ----------------
+#BSUB -J aggregation
 
 ### ------------- specify gpu request---------------- 
 #BSUB -gpu "num=1:mode=exclusive_process"
-
-### ------------- specify job name ---------------- 
-#BSUB -J testjob_piton
 
 ### ------------- specify number of cores ---------------- 
 #BSUB -n 4 
 #BSUB -R "span[hosts=1]"
 
+### ------------- specify output file ----------------
+#BSUB -o jobs-output/%Joutput.out
+#BSUB -e jobs-output/%Jerror.out
+
 ### ------------- specify CPU memory requirements ---------------- 
 #BSUB -R "rusage[mem=20GB]"
 
-#BSUB -W 12:00 
-#BSUB -o output/OUTPUT_FILE%J.out 
-#BSUB -e output/OUTPUT_FILE%J.err
+### ------------- maximum job execution time ----------------
+#BSUB -W 01:00
+
 
 source "/zhome/97/a/203937/idlcv/bin/activate"
-python "datasets.py"
+python "aggregation.py"

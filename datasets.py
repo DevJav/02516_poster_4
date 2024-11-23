@@ -93,7 +93,7 @@ class FrameVideoDataset(torch.utils.data.Dataset):
 if __name__ == '__main__':
     from torch.utils.data import DataLoader
 
-    root_dir = '/work3/ppar/data/ucf101'
+    root_dir = '/zhome/97/a/203937/02516_poster_4/ufc10'
 
     transform = T.Compose([T.Resize((64, 64)),T.ToTensor()])
     frameimage_dataset = FrameImageDataset(root_dir=root_dir, split='val', transform=transform)
