@@ -166,3 +166,4 @@ cython_debug/
 ufc10/*
 *out
 aggregation_results/*
+*.pth
