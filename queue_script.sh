@@ -2,7 +2,7 @@
 ### ------------- specify queue name ---------------- 
 ###BSUB -q gpu02516i
 ###BSUB -q c02516
-#BSUB -q gpua10
+#BSUB -q gpua40
 
 
 ### ------------- specify job name ----------------
@@ -27,4 +27,4 @@
 
 
 source "/zhome/97/a/203937/idlcv/bin/activate"
-python "aggregation.py"
+python "earlyFusion.py"
