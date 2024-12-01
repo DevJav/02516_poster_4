@@ -13,6 +13,7 @@ from torchvision.models.video import r3d_18, R3D_18_Weights
 
 
 class CNN3DModel(nn.Module):
+    # Define the 3D CNN model, we don't use it, we are using a pre defined model insetad r3d_18
     def __init__(self, num_classes):
         super(CNN3DModel, self).__init__()
         
@@ -102,7 +103,7 @@ if __name__ == '__main__':
 
     # Move to device
     model = model.to(device)
-    # Initialize Late Fusion model
+    # Initialize de model
     # model = CNN3DModel(num_classes=len(classes)).to(device)
 
 
@@ -150,7 +151,7 @@ if __name__ == '__main__':
         print('Finished Training')
         
         # Save model
-        torch.save(model.state_dict(), os.path.join(results_dir, 'late_fusion3_model.pth'))
+        torch.save(model.state_dict(), os.path.join(results_dir, '3d_cnn_model.pth'))
 
         # Save epoch average loss and validation accuracy into files
         with open(os.path.join(results_dir, 'epoch_avg_loss.txt'), 'w') as f:
