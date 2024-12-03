@@ -10,7 +10,7 @@ import torch.nn.functional as F
 
 class FrameImageDataset(torch.utils.data.Dataset):
     def __init__(self, 
-    root_dir='/work3/ppar/data/ucf101_noleakage',
+    root_dir='/dtu/datasets1/0251/ucf101_noleakage',
     split='train', 
     transform=None
 ):
@@ -140,18 +140,18 @@ class FlowVideoDataset(torch.utils.data.Dataset):
 if __name__ == '__main__':
     from torch.utils.data import DataLoader
 
-    root_dir = '/work3/ppar/data/ucf101_noleakage'
+    root_dir = '/dtu/datasets1/02516/ucf101_noleakage'
 
-    transform = T.Compose([T.Resize((64, 64)),T.ToTensor()])
-    frameimage_dataset = FrameImageDataset(root_dir=root_dir, split='val', transform=transform)
-    framevideostack_dataset = FrameVideoDataset(root_dir=root_dir, split='val', transform=transform, stack_frames = True)
-    framevideolist_dataset = FrameVideoDataset(root_dir=root_dir, split='val', transform=transform, stack_frames = False)
+    # transform = T.Compose([T.Resize((64, 64)),T.ToTensor()])
+    # frameimage_dataset = FrameImageDataset(root_dir=root_dir, split='val', transform=transform)
+    # framevideostack_dataset = FrameVideoDataset(root_dir=root_dir, split='val', transform=transform, stack_frames = True)
+    # framevideolist_dataset = FrameVideoDataset(root_dir=root_dir, split='val', transform=transform, stack_frames = False)
     flowvideo_dataset = FlowVideoDataset(root_dir=root_dir, split='val', resize=(64,64))
 
 
-    frameimage_loader = DataLoader(frameimage_dataset,  batch_size=8, shuffle=False)
-    framevideostack_loader = DataLoader(framevideostack_dataset,  batch_size=8, shuffle=False)
-    framevideolist_loader = DataLoader(framevideolist_dataset,  batch_size=8, shuffle=False)
+    # frameimage_loader = DataLoader(frameimage_dataset,  batch_size=8, shuffle=False)
+    # framevideostack_loader = DataLoader(framevideostack_dataset,  batch_size=8, shuffle=False)
+    # framevideolist_loader = DataLoader(framevideolist_dataset,  batch_size=8, shuffle=False)
     flowvideo_loader = DataLoader(flowvideo_dataset,  batch_size=8, shuffle=False)
 
     # for frames, labels in frameimage_loader:
@@ -166,5 +166,19 @@ if __name__ == '__main__':
     #     print(video_frames.shape, labels.shape) # [batch, channels, number of frames, height, width]
 
     # for flows, labels in flowvideo_loader:
-    #     print(flows.shape, labels.shape) # [2 * (number of frames-1) , height, width]
-            
+        # print(flows.shape, labels.shape) # [2 * (number of frames-1) , height, width]
+
+    # plot flow video
+    import matplotlib.pyplot as plt
+    import numpy as np
+
+    for flows, labels in flowvideo_loader:
+        print(flows.shape, labels.shape)
+        flows = flows.numpy()
+        flows = flows.reshape(-1, 2, 64, 64)
+        flows = np.transpose(flows, (0, 2, 3, 1))
+        for flow in flows:
+            plt.imshow(flow[:,:,0])
+            plt.savefig('flow.png')
+            break
+        break
