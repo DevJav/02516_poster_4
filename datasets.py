@@ -140,7 +140,7 @@ class FlowVideoDataset(torch.utils.data.Dataset):
 if __name__ == '__main__':
     from torch.utils.data import DataLoader
 
-    root_dir = '/work3/ppar/data/ucf101_noleakage'
+    root_dir = '/dtu/datasets1/02516/ucf101_noleakage'
 
     transform = T.Compose([T.Resize((64, 64)),T.ToTensor()])
     frameimage_dataset = FrameImageDataset(root_dir=root_dir, split='val', transform=transform)
